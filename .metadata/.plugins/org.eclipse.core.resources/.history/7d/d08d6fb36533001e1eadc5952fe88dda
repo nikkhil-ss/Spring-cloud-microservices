@@ -1,0 +1,16 @@
+package com.repository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+
+
+import com.model.Login;
+
+import java.util.List;
+
+
+
+public interface UserRepository extends MongoRepository<Login, String> {
+	
+	List<Login> findByUsername(String username);
+}

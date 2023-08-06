@@ -1,0 +1,39 @@
+
+package com.validate;
+
+import com.model.Candidate;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+@Component
+public class CustomValidator implements Validator {
+
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return false;
+	}
+
+	@Override
+	public void validate(Object arg0, Errors arg1) {
+		Candidate can = (Candidate) arg0;
+		if (!can.getCandidateName().isBlank()) {
+			if (!(can.getCandidateName().matches("^[a-zA-Z ]*$") && can.getCandidateName().length() >= 3
+					&& can.getCandidateName().length() <= 10)) {
+
+				arg1.rejectValue("candidateName", null,
+						"Name should contain only alphabets and space min 3 chars and max 10 chars");
+			}
+		}
+		if (!can.getContactNumber().isBlank()) {
+			if (!(can.getContactNumber().length() == 10
+					&& Integer.parseInt(String.valueOf(can.getContactNumber().charAt(0))) >= 6
+					&& Integer.parseInt(String.valueOf(can.getContactNumber().charAt(0))) <= 10)) {
+				arg1.rejectValue("contactNumber", null,
+						"Contact Number should be of 10 digits/Contact Number should start with range 6 to 9");
+			}
+		}
+
+	}
+}

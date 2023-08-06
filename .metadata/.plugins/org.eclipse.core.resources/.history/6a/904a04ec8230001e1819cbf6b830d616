@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body bgcolor="lavender">
+	<h1>
+		<center>Candidate List</center>
+	</h1>
+	<!--  Fill the code -->
+
+		<table border="2" width="40%" cellpadding="2">
+			<tr>
+				<th>Candidate Name</th>
+				<th>Contact Number</th>
+				<th>Gender</th>
+				<th>Position Applied</th>
+				<th>Expected Salary</th>
+				<th>Experience in years</th>
+
+			</tr>
+			<c:forEach var="candidate" items="${candidates}">
+				<tr>
+					<td>${candidate.candidateName}</td>
+					<td>${candidate.contactNumber}</td>
+					<td>${candidate.gender}</td>
+					<td>${candidate.positionApplied}</td>
+					<td>${candidate.expectedSalary}</td>
+					<td>${candidate.yearsOfExperience}</td>
+				
+				</tr>
+			</c:forEach>
+		</table>
+
+		<a href="home">Back to Home</a>
+	
+</body>
+</html> 

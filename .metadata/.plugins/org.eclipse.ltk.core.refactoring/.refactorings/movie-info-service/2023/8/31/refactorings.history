@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;com.example.demo.model.Movie.overview&apos; in &apos;com.example.demo.model.Movie&apos;&#x0A;- Original project: &apos;movie-info-service&apos;&#x0A;- Original element: &apos;com.example.demo.model.Movie.overview&apos;&#x0A;- Getter method name: &apos;getOverview&apos;&#x0A;- Setter method name: &apos;setOverview&apos;&#x0A;- Field visibility: &apos;public&apos;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;overview&apos;" flags="589830" getter="getOverview" id="org.eclipse.jdt.ui.self.encapsulate" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.demo.model{Movie.java[Movie^overview" insertion="5" setter="setOverview" stamp="1691071416198" version="1.0" visibility="1"/>
+</session>

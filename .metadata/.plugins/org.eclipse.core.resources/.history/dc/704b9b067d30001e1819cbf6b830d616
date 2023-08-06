@@ -1,0 +1,160 @@
+//package com.controller;
+//
+//import java.util.ArrayList;
+//import java.util.HashMap;
+//import java.util.Map;
+//import java.util.List;
+//
+//import jakarta.validation.Valid;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.ui.ModelMap;
+//import org.springframework.validation.BindingResult;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.PostMapping;
+//
+//import com.model.Candidate;
+//import com.service.RecruitService;
+//import com.validate.CustomValidator;
+//
+//@Controller
+//public class RecruitController {
+//
+//	
+//    private CustomValidator custValidator;
+//
+//	
+//    private RecruitService service;
+//
+//	@GetMapping("/home")
+//	public String showIndexPage() {
+//
+//		return "index";
+//		// fill code
+//	}
+//
+//	@GetMapping("/")
+//	public String showIndex() {
+//
+//		return "index";
+//		// fill code
+//	}
+//
+//	@GetMapping("/showCandidatePage")
+//	public String showPage(@ModelAttribute("candidate") Model model) {
+////		model.addAttribute("candidate", new Candidate());
+//		return "showPage";
+//	}
+//
+//	@ModelAttribute("positionDtls")
+//	public ArrayList<String> populatePositionDtls() {
+//
+//		// fill code
+//
+//		ArrayList<String> posList = new ArrayList<String>();
+//		posList.add("TL");
+//		posList.add("PL");
+//		posList.add("Developer");
+//		posList.add("Tester");
+//		posList.add("Administrators");
+//		
+//		return posList;
+//	}
+//
+////	@PostMapping("/register")
+////	public String registerCandidate(@ModelAttribute("candidate") @Valid Candidate candidate, BindingResult result,
+////			ModelMap model) {
+////
+////		// fill code
+////
+////		return "success";
+////	}
+//
+//	@GetMapping("/viewAllCandidateList")
+//	public String viewAllCandidates(@ModelAttribute("candidate") ModelMap model) {
+//
+//		// fill code
+//		List<Candidate> candlist=service.viewAllCandidates();
+//		model.addAttribute("candlist",candlist);
+//		
+//
+//		return "viewList";
+//	}
+//
+//}
+
+package com.controller;
+
+import com.model.Candidate;
+import com.service.RecruitService;
+import com.validate.CustomValidator;
+
+import jakarta.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.util.Arrays;
+import java.util.List;
+
+@Controller
+public class RecruitController {
+
+	@Autowired
+	private CustomValidator custValidator;
+
+	@Autowired
+	private RecruitService service;
+
+	@ModelAttribute("positionDtls")
+	public List<String> populatePositionDtls() {
+		return Arrays.asList("TL", "PL", "Developer", "Tester", "Admin");
+	}
+
+	@GetMapping("/home")
+	public String showIndexPage() {
+		return "index";
+	}
+
+	@ModelAttribute("candidate")
+	public Candidate candidate() {
+		return new Candidate();
+	}
+
+	@GetMapping("/showCandidatePage")
+	public String showPage(Model model) {
+		model.addAttribute("candidate", new Candidate());
+		return "showPage";
+	}
+
+	@PostMapping("/register")
+    public String registerCandidate(@Valid @ModelAttribute("candidate") Candidate candidate,
+                                    BindingResult result, Model model) {
+        custValidator.validate(candidate, result);
+
+        if (result.hasErrors()) {
+        	
+            return "showPage";
+        }
+
+        service.insertCandidate(candidate);
+        model.addAttribute("candidateName", candidate.getCandidateName());
+        return "success";
+    }
+
+	@GetMapping("/viewAllCandidateList")
+	public String viewAllCandidates(@ModelAttribute("candidate") Model model) {
+		List<Candidate> candidateList = service.viewAllCandidates();
+		model.addAttribute("candidates", candidateList);
+		return "viewList";
+	}
+}
