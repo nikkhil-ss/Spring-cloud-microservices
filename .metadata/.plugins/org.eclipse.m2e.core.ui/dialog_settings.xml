@@ -6,6 +6,7 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="/Users/nikhilsingh/Desktop/microservices_level1/doctors-service"/>
 			<item value="/Applications/SpringToolSuite4.app/Contents/MacOS/Tekstac/Bus Rating App using JWT Token - Version Update"/>
 			<item value="/Users/nikhilsingh/Downloads/BusTicketBookingApp"/>
 			<item value="/Users/nikhilsingh/Downloads/SpringJWTWithMongo"/>
